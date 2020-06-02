@@ -5,7 +5,7 @@ module.exports = ( debt, amount, due  ) => {
     
     for (let i = 1; i < amount; i++)
     {
-        var dataVencimento = new Date(due.setMonth(due.getMonth() + i));       
+        var dataVencimento = new Date(due.setMonth(due.getMonth() + 1));       
         parcelas.push({id: i + 1, parcela: valor, vencimento: dataVencimento.toLocaleDateString() });
         
     } 

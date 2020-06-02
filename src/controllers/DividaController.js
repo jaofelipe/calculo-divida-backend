@@ -21,8 +21,7 @@ module.exports = {
         fs.readFile(path.join(directoryPath, file), (err,file) => {
           if (err) return console.log(`Erro ao ler o arquivo: ${err}`);
             
-          const dividas = JSON.parse(file);
-         
+          const dividas = JSON.parse(file);         
           const divida = dividas.map((item) =>{
 
             //dias atraso  = data do calculo - datavencimento
@@ -33,25 +32,22 @@ module.exports = {
             const calcDivida = calcInterest(tipoJuros, item.valorOriginal,jurosDia, atraso).toFixed(2);           
             const calcComissao = (calcDivida * comissao / 100).toFixed(2);
 
-            //adicionar a quantidade de dias de atraso original
-            //console.log(newDue(dataVencimento, atraso));
+            //adicionar a quantidade de dias de atraso original           
             const parcelas = installments(calcDivida,qtParcelas,newDue(dataVencimento, atraso));
-            //console.log(JSON.parse(parcelas));
            
-            
-            return { dataVencimento, atraso, original: item.valorOriginal,   
-                    juros: (calcDivida - item.valorOriginal).toFixed(2), calcDivida, parcelas,  calcComissao, telefone: item.telefone}
+  
+            return { dataVencimento, atraso, original: item.valorOriginal, juros: (calcDivida - item.valorOriginal).toFixed(2),   
+                    calcDivida, parcelas,  calcComissao, telefone: item.telefone}
           
           
           });
 
           return res.json(divida);
           
+        });
       });
     });
-  });
-   
-    
+
      
   },
 
