@@ -1,0 +1,1 @@
+module.exports = (dueDate, dueDay) => new Date(dueDate.setTime(dueDate.getTime() + dueDay * 86400000));

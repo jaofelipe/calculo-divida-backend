@@ -1,4 +1,4 @@
-export default function parse(data){ //exemplo 31/03/2020
+module.exports = (data) => { //exemplo 31/03/2020
     const dataSplit = data.split('/');
 
     const day = dataSplit[0]; //31
