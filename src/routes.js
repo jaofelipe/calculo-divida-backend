@@ -8,8 +8,8 @@ var jsonParser = bodyParser.json()
 
 const routes = express.Router();
 
-
-routes.post('/calculo/index', jsonParser, DividaController.index);
+routes.get('/list', DividaController.list);
+routes.post('/calc', jsonParser, DividaController.calc);
 routes.get('/teste', (req, res) => { 
     return res.json({
         test: "teste chamada API",

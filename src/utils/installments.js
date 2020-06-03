@@ -9,7 +9,7 @@ module.exports = ( debt, amount, due  ) => {
         parcelas.push({id: i + 1, parcela: valor, vencimento: dataVencimento.toLocaleDateString() });
         
     } 
-    console.log(parcelas);
+    
     return parcelas;
     
 }

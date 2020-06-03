@@ -9,9 +9,9 @@ require('dotenv/config');
 
 module.exports = {
   
-  async index(req, res) {
+  async calc(req, res) {
     const { tipoJuros, qtParcelas, jurosDia, comissao } = req.body;
-    
+    console.log(req.body);
     //joining path of directory 
     const directoryPath = path.join(__dirname, '..','data');
     fs.readdir(directoryPath, (err,files) => {
@@ -25,8 +25,7 @@ module.exports = {
           const divida = dividas.map((item) =>{
 
             //dias atraso  = data do calculo - datavencimento
-            let dataVencimento = convert(item.dataVencimento);
-           
+            let dataVencimento = convert(item.dataVencimento)
             atraso = diff(new Date(),dataVencimento); 
             
             const calcDivida = calcInterest(tipoJuros, item.valorOriginal,jurosDia, atraso).toFixed(2);           
@@ -36,10 +35,10 @@ module.exports = {
             const parcelas = installments(calcDivida,qtParcelas,newDue(dataVencimento, atraso));
            
   
-            return { dataVencimento, atraso, original: item.valorOriginal, juros: (calcDivida - item.valorOriginal).toFixed(2),   
+            return { _id: item._id, dataVencimento: item.dataVencimento, atraso, original: item.valorOriginal, 
+                    juros: (calcDivida - item.valorOriginal).toFixed(2),   
                     calcDivida, parcelas,  calcComissao, telefone: item.telefone}
-          
-          
+                  
           });
 
           return res.json(divida);
@@ -51,7 +50,7 @@ module.exports = {
      
   },
 
-  async details(req, res) {
+  async list(req, res) {
     const { username } = req.params;
 
     const response = await axios.get(`https://api.github.com/users/${username}`,
